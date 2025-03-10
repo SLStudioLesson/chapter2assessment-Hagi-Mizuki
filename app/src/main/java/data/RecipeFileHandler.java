@@ -20,24 +20,24 @@ public class RecipeFileHandler {
 
     /**
      * 設問1: 一覧表示機能
-     * recipes.txtからレシピデータを読み込み、それをリスト形式で返します。 <br> 
+     * recipes.txtからレシピデータを読み込み、それをリスト形式で返します。 <br>
      * IOExceptionが発生したときは<i>Error reading file: 例外のメッセージ</i>とコンソールに表示します。
      *
      * @return レシピデータ
      */
-    public ArrayList<String> readRecipes(){
+    public ArrayList<String> readRecipes() {
         // // String型のArrayListの作成
         ArrayList<String> recipes = new ArrayList<>();
         // データの読み込み
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             // recipes.txtからレシピデータを読み込み、それをリスト形式で返します。 <br>
-                // // ArrayList<String>型のlineを1列取得するために作成
-                String line;
-                //recipes.txtの文字列が何列か不明のためwhile文にてループ処理をさせる
-                while ((line = reader.readLine()) != null) {
-                    // リスト形式で返す  Arraylistにlineを追加したい
-                    recipes.add( line );
-                }
+            // // ArrayList<String>型のlineを1列取得するために作成
+            String line;
+            // recipes.txtの文字列が何列か不明のためwhile文にてループ処理をさせる
+            while ((line = reader.readLine()) != null) {
+                // リスト形式で返す Arraylistにlineを追加したい
+                recipes.add(line);
+            }
         } catch (IOException e) {
             // IOExceptionが発生したときは<i>Error reading file: 例外のメッセージ</i>とコンソールに表示します。
             System.out.println("Error reading file:" + e.getMessage());
@@ -55,13 +55,12 @@ public class RecipeFileHandler {
      */
     //
     public void addRecipe(String recipeName, String ingredients) {
-        String[] recipeWrite = {recipeName, ingredients};
 
-
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            //新しいレシピを`recipes.txt`に追加
-            String aa =String.join(",",recipeWrite);
-            writer.write( aa);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            // 新しいレシピを`recipes.txt`に追加
+            String recipeToWriter = recipeName + "," + ingredients;
+            // String aa =String.join(recipeToWriter);
+            writer.write(recipeToWriter);
             writer.newLine();
         } catch (IOException e) {
             // <br> IOExceptionが発生したときは`Error reading file: 例外のメッセージ`とコンソールに表示します。
